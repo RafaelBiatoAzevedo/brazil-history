@@ -1,3 +1,4 @@
+import { useTheme } from "styled-components";
 import { FCWithChildren } from "../../types/FCWithChildren";
 import { Button } from "../Button";
 import { Text } from "../Text";
@@ -6,6 +7,7 @@ import { Image, LogoWrapper, MenuWrapper, Wrapper } from "./styles";
 import logo from "~/assets/images/coatOfArms.png";
 
 export const Header: FCWithChildren = (): JSX.Element => {
+  const { colors } = useTheme();
   return (
     <Wrapper>
       <LogoWrapper>
@@ -19,6 +21,8 @@ export const Header: FCWithChildren = (): JSX.Element => {
           <Button
             width={"100%"}
             backgroundColor={"transparent"}
+            withBorder
+            borderColor={colors.primary}
             borderRadius="100px"
             fontColor="onPrimary"
             fontSize="1.3rem"
