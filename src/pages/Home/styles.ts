@@ -24,11 +24,9 @@ export const TopicTitleWrapper = styled.div`
 `;
 
 export const TopicWrapper = styled.div`
-  align-items: center;
-  justify-content: center;
   display: flex;
   flex: 1;
-  padding: ${(p) => p.theme.spacing.sm};
+  padding: ${(p) => p.theme.spacing.md} ${(p) => p.theme.spacing.lg};
 
   overflow-y: auto;
   scroll-behavior: smooth;

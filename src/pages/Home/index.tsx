@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FCWithChildren } from "../../types/FCWithChildren";
 
 import { TopMenu } from "~/components/TopMenu";
@@ -15,7 +15,17 @@ import {
 } from "./styles";
 import { useTheme } from "styled-components";
 
-const HISTORY_THEME = {
+export interface ITopic {
+  titleTopic: string;
+  options: string[];
+}
+
+interface IHistoryTheme {
+  title: string;
+  topics: ITopic[];
+}
+
+const HISTORY_THEME: IHistoryTheme = {
   title: "Autoridades policiais do Brasil Império",
   topics: [
     {
@@ -31,14 +41,22 @@ const HISTORY_THEME = {
 
 export const Home: FCWithChildren = (): JSX.Element => {
   const { colors } = useTheme();
-  const [topicSelected, setTopicSelected] = useState(
-    HISTORY_THEME.topics[0].titleTopic
-  );
-  const [subtopicSelected, setSubtopicSelected] = useState(
-    HISTORY_THEME.topics[0].options[0]
+  const [topicSelected, setTopicSelected] = useState(HISTORY_THEME.topics[0]);
+  const [subtopicSelected, setSubtopicNumber] = useState<number | undefined>(0);
+
+  const changeSubtopicSelected = useCallback(
+    (newTopic: ITopic, newSubtopicNumber?: number) => {
+      setTopicSelected(newTopic);
+      setSubtopicNumber(newSubtopicNumber);
+    },
+    []
   );
 
-  const hadleChangeTopicSelected = useCallback((newTopic: string) => {}, []);
+  useEffect(() => {
+    if (topicSelected?.options && topicSelected?.options?.length === 1) {
+      setSubtopicNumber(0);
+    }
+  }, [topicSelected, subtopicSelected]);
 
   return (
     <Wrapper>
@@ -46,21 +64,30 @@ export const Home: FCWithChildren = (): JSX.Element => {
       <TopMenu
         title={HISTORY_THEME.title}
         topics={HISTORY_THEME.topics}
+        changeSelectSubtopic={changeSubtopicSelected}
       ></TopMenu>
       <MainWrapper>
         <TopicTitleWrapper>
           <Text color="primary" weight="bold" size="1.5rem">
-            {topicSelected}
+            {topicSelected.titleTopic}
           </Text>
-          <MdArrowForward color={colors.primary} size={"1.5rem"} />
-          <Text color="onBackground" size="1.5rem">
-            {subtopicSelected}
-          </Text>
+          {subtopicSelected !== undefined && (
+            <MdArrowForward color={colors.primary} size={"1.5rem"} />
+          )}
+          {subtopicSelected !== undefined && (
+            <Text color="onBackground" size="1.5rem" weight="medium">
+              {topicSelected.options[subtopicSelected]}
+            </Text>
+          )}
         </TopicTitleWrapper>
         <TopicWrapper>
-          <Text color="primary" size="3rem" weight="bold">
-            Dados a serem exibidos
-          </Text>
+          {topicSelected && subtopicSelected === undefined && (
+            <ul>
+              {topicSelected.options.map((topic) => (
+                <li>{topic}</li>
+              ))}
+            </ul>
+          )}
         </TopicWrapper>
       </MainWrapper>
     </Wrapper>

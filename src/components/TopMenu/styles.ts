@@ -21,8 +21,13 @@ export const MenuWrapper = styled.div`
   gap: 4rem;
 `;
 
-export const ButtonMenu = styled.div`
+export const ButtonWrapper = styled.div`
   position: relative;
+`;
+
+export const ButtonMenu = styled.button`
+  background-color: transparent;
+  border: none;
   align-items: center;
   display: flex;
   cursor: pointer;
@@ -31,6 +36,10 @@ export const ButtonMenu = styled.div`
   padding: ${(p) => p.theme.spacing.xs} ${(p) => p.theme.spacing.sm};
 
   gap: 1rem;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const rotate45 = keyframes`
@@ -67,7 +76,10 @@ export const OptionsWrapper = styled.div`
   box-shadow: -0px 1px 10px 2px rgba(0, 0, 0, 0.75);
 `;
 
-export const Option = styled.div`
+export const Option = styled.button`
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
   justify-content: flex-start;
   display: flex;
 
