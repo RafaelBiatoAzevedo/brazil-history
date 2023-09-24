@@ -2,40 +2,59 @@ import { useTheme } from "styled-components";
 import { FCWithChildren } from "../../types/FCWithChildren";
 import { Button } from "../Button";
 import { Text } from "../Text";
-import { MenuWrapper, Wrapper } from "./styles";
+import {
+  ButtonMenu,
+  IconButtonMenuWrapper,
+  MenuWrapper,
+  Option,
+  OptionsWrapper,
+  Wrapper,
+} from "./styles";
+
+//import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import { useState } from "react";
+import { ITopic } from "~/interfaces/Itopic";
 
 interface ITopMenuProps {
   title: string;
+  topics: ITopic[];
 }
 
 export const TopMenu: FCWithChildren<ITopMenuProps> = ({
   title,
+  topics,
 }): JSX.Element => {
   const { colors } = useTheme();
+  const [isShowOptions, setIsShowOptions] = useState(false);
   return (
     <Wrapper>
-      <Text size="1.6rem" color="onSecondary" weight="medium">
+      <Text align="center" size="1.8rem" color="onPrimary" weight="bold">
         {title}
       </Text>
       <MenuWrapper>
-        {["Menu 1", "Menu 2", "Menu 3", "Menu 4", "Menu 5", "Menu 6"].map(
-          (title, index) => (
-            <Button
-              width="10%"
-              backgroundColor={"transparent"}
-              borderRadius="0px"
-              withBorder={index === 0}
-              borderColor={"transparent"}
-              fontColor={"onSecondary"}
-              fontSize="1.3rem"
-              fontWeight="bold"
-              paddingX="2rem"
-              paddingY="1rem"
-              title={title}
-              type="submit"
-            />
-          )
-        )}
+        {(topics || []).map((topic) => (
+          <ButtonMenu
+            key={topic.titleTopic}
+            onMouseOver={() => setIsShowOptions(true)}
+            onMouseOut={() => setIsShowOptions(false)}
+          >
+            {isShowOptions && topic.options.length > 1 && (
+              <OptionsWrapper>
+                {topic.options.map((opition) => (
+                  <Option>
+                    <Text>{opition}</Text>
+                  </Option>
+                ))}
+              </OptionsWrapper>
+            )}
+            <Text size="1.4rem" color="onPrimary" weight="medium">
+              {topic.titleTopic}
+            </Text>
+            {/* <IconButtonMenuWrapper>
+              <MdArrowDropDown size={"2.5rem"} color={colors.onPrimary} />
+            </IconButtonMenuWrapper> */}
+          </ButtonMenu>
+        ))}
       </MenuWrapper>
     </Wrapper>
   );

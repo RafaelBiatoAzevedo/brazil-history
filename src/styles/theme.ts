@@ -1,10 +1,10 @@
 export const theme = {
   colors: {
-    primary: " #f7d800",
-    onPrimary: "#03703e",
+    primary: "#34559a",
+    onPrimary: "#ffffff",
 
-    secondary: "#03703e",
-    onSecondary: "#fff",
+    secondary: "#34559a",
+    onSecondary: "#ffffff",
 
     background: "#f5f1ee",
     onBackground: "#575757",
@@ -28,24 +28,6 @@ export const theme = {
     grayMedium: "#7E808D",
     grayDark: "#7E808D",
     red: "#FF4747",
-
-    font: "#4C5264",
-
-    border: "#35399017",
-    finishDisabled: "#B5B5B5",
-    send: "#FF9100",
-
-    all: "#ed5807",
-    available: "#305313",
-    inUse: "#b90c0c",
-    inCleaning: "#9b6c36",
-    inMaintenance: "#111111",
-
-    money: "#008000",
-    card: "#0000ff",
-    pix: "#ffc0cb",
-    ticket: "#000000",
-    prepaid: "#ffff00",
   },
 
   spacing: {
